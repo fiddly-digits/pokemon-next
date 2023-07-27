@@ -1,8 +1,8 @@
-export default function SSG(props) {
+export default function SSR(props) {
   return (
     <>
-      <h1>Esta es una pagina renderizada estaticamente</h1>
-      <p>Lo que significa que se genera al correr el build de este proyecto</p>
+      <h1>Esta es una pagina renderizada en el servidor</h1>
+      <p>Lo que significa que se genera al hacer una peticion al servidor</p>
       <p>Name: {props.name}</p>
       {props.pokemon.map((poke) => {
         return <p key={`${poke.name}`}>Name: {poke.name}</p>;
@@ -11,11 +11,11 @@ export default function SSG(props) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const pokemon = await fetch('https://pokeapi.co/api/v2/pokemon/').then(
     (res) => res.json()
   );
-
+  console.log(pokemon);
   return {
     props: {
       name: 'Rob',

@@ -1,8 +1,7 @@
-import fetch from 'node-fetch';
 export default function PokemonDetail(props) {
   return (
     <>
-      <image
+      <img
         src={props.pokemon.sprites.other['official-artwork'].front_default}
         alt='pokemon-img'
       />
@@ -21,12 +20,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  console.log(params);
   const pokemon = await fetch(
-    `https://pokeapi.com/api/v2/pokemon/${params.name}`
+    `https://pokeapi.co/api/v2/pokemon/${params.name}`
   ).then((res) => res.json());
 
   return {
-    props: { pokemon }
+    props: { pokemon },
+    revalidate: 60 * 30 //revisa si esa pagina necesita actualizarse en segundos
   };
 }
